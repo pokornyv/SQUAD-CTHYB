@@ -1,0 +1,34 @@
+[params]
+
+beta     : 20
+U        : 2.0
+Delta    : 1.0
+GammaL   : 0.5
+GammaR   : 0.5
+GammaN   : 0.0
+eps      : 0.0
+P        : 0.5
+BW       : 20.0
+NFit     : 8
+SymmS    : 0
+SymmG    : 0
+
+NBins    : 1
+PrevBins : 0
+
+[ct-hyb]
+
+partition     : autopartition
+
+measure_Gtau  : 1
+measure_Gleg  : 1
+measure_Gat   : 0
+measure_pert  : 1
+
+NWarmup       : 1e5
+NCycles       : 1e6
+LengthCycle   : 100
+
+NMats         : 200
+NLeg          : 40
+NTau          : 1023
