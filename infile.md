@@ -4,9 +4,9 @@ Description of the *cthyb.in* file
 The file *cthyb.in* defines various parameters used by the code.
 Default values can be found in *params.py*, code that reads the input file.  
   
-##Description
+## Description
 
-###[params] section
+### [params] section
 
 - beta       : inverse temperature  
 - U          : Coulomb interaction strength  
@@ -23,7 +23,7 @@ Default values can be found in *params.py*, code that reads the input file.
 - NBins      : number of bins in binning procedure, NBins=1 means single run  
 - PrevBins   : number of bins in previous run, useful if we continue binning  
 
-###[ct-hyb] section
+### [ct-hyb] section
 
 - partition     : Hilbert space partition method (autopartition is OK)  
 - measure_Gtau  : measure G(tau) ? (0/1)  
