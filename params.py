@@ -4,10 +4,16 @@
 # Vladislav Pokorny; 2016-2017; pokornyv@fzu.cz
 
 import scipy as sp
+from os import listdir
 from ConfigParser import SafeConfigParser
 from libqmc14 import OmegaN
 
 config = SafeConfigParser()
+
+if 'cthyb.in' not in listdir('.'): 
+	print('Main input file cthyb.in is missing. Exit.')
+	exit(1)
+
 config.read('cthyb.in')
 
 P = {}
@@ -38,8 +44,8 @@ P['measure_Gleg']  = False
 P['measure_Gat']   = False
 P['measure_pert']  = True
 ## integers in ct-hyb
-P['NWarmup']       = 1e5
-P['NCycles']       = 1e7
+P['NWarmup']       = int(1e5)
+P['NCycles']       = int(1e7)
 P['LengthCycle']   = 100
 P['NMats']         = 400
 P['NLeg']          = 40

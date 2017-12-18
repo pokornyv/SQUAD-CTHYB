@@ -78,6 +78,53 @@ def GFzero(params_F,W,NMats,FitMin,FitMax,NTerms):
 	GF.fit_tail(fixed_tail,8,FitMin,FitMax)
 	return GF
 
+"""
+def GFzeroRenorm(params_F,W,NMats,FitMin,FitMax,NTerms):
+	''' constructs the non-interacting Green function as the input 
+	uses the atomic limit renormalization procedure 
+	normal lead not implemented!!! '''
+	[beta,U,Delta,GammaL,GammaR,GammaN,eps,P,B] = params_F
+	if GammaN!=0.0: print('Warning: Normal lead not implemented in renormalized atomic function!')
+	Phi = P*sp.pi
+	RF = 1.0+IntFiniteBW(Delta,W,iw)
+	epsUp =  eps + U/2.0 + B
+	epsDn = -eps + U/2.0 + B
+	V2 = W*GammaN/sp.pi  # hybridization with normal lead
+	## define lambdas (hybridizations are real)
+	GF11_0 = lambda x: x*(1.0 + HybDiagFiniteW(GammaL,GammaR,Delta,W,x)) - epsUp
+	GF12_0 = lambda x: HybOffDiagFiniteW(GammaL,GammaR,Delta,P,W,x)
+	GF21_0 = lambda x: sp.conj(HybOffDiagFiniteW(GammaL,GammaR,Delta,P,W,x))
+	GF22_0 = lambda x: x*(1.0 + HybDiagFiniteW(GammaL,GammaR,Delta,W,x)) - epsDn
+
+	GF11_1 = lambda x: 
+	GF12_1 = lambda x: 
+	GF21_1 = lambda x: 
+	GF22_1 = lambda x: 
+	## define GF objects
+	GFinv = GfImFreq(indices = ['up','dn'],beta = beta,n_points = NMats)
+	GF    = GfImFreq(indices = ['up','dn'],beta = beta,n_points = NMats)
+	## fill GF objects with lambdas
+	## W is half-bandwidth in Flat() descriptor from TRIQS
+	GFinv['up','up'] << Function(GF11_0)+Function(GF11_1)
+	GFinv['up','dn'] << Function(GF12_0)+Function(GF12_1)
+	GFinv['dn','up'] << Function(GF21_0)+Function(GF21_1)
+	GFinv['dn','dn'] << Function(GF22_0)+Function(GF22_1)
+	## fit the tail
+	GFinv.tail.zero()
+	fixed_tail = TailGf(2,2,1,-1)
+	fixed_tail[-1] = sp.eye(2)
+	GFinv.fit_tail(fixed_tail,8,FitMin,FitMax)
+	## calculate inverse
+	GF << inverse(GFinv)
+	## refit the tail
+	GF.tail.zero()
+	fixed_tail = TailGf(2,2,3,-1)
+	fixed_tail[-1] = sp.zeros([2,2])
+	fixed_tail[ 0] = sp.zeros([2,2])
+	fixed_tail[ 1] = sp.eye(2)
+	GF.fit_tail(fixed_tail,8,FitMin,FitMax)
+	return GF
+"""
 
 ###########################################################
 ## processing the output Green functions ##################

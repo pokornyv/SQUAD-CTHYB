@@ -8,20 +8,20 @@ Default values can be found in *params.py*, code that reads the input file.
 
 ### [params] section
 
-- beta       : inverse temperature  
+- beta       : inverse temperature, β = 1/kT  
 - U          : Coulomb interaction strength  
 - Delta      : superconducting gap  
 - GammaL     : coupling to the left lead  
 - GammaR     : coupling to the right lead  
 - GammaN     : coupling to the normal lead  
-- eps        : local energy level w.r.t e-h symmetric point (eps=0 is half-filled dot)  
-- P          : phase difference, in units of pi  
+- eps        : local energy level w.r.t e-h symmetric point (ε=0 is a half-filled dot)  
+- P          : phase difference, in units of π  
 - B          : external magnetic field  
 - BW         : half-bandwidth of the non-interacting band  
 - NFit       : number of terms fitted in tail fitting of Matsubara functions  
 - InputParam : the independent parameter, used for output only  
-- NBins      : number of bins in binning procedure, NBins=1 means single run  
-- PrevBins   : number of bins in previous run, useful if we continue binning  
+- NBins      : number of bins in the binning procedure, NBins=1 means a single run  
+- PrevBins   : number of bins in a previous run, useful if we continue binning  
 
 ### [ct-hyb] section
 

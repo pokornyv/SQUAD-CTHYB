@@ -30,31 +30,32 @@ mpi.barrier()
 stars  = '*'*60
 hashes = '#'*60
 
-if p.P['NBins'] == 1:		# single run
+if p.P['NBins'] == 1:		## single run
 	logfname = 'cthyb.log'
-else:					# binning mode
+else:					## binning mode
 	logfname = 'bin.log'
-	p.P['measure_Gtau'] = True	# just in case so we don't lose statistics on G(tau)
+	p.P['measure_Gtau'] = True	## just in case so we don't lose statistics on G(tau)
 
 if mpi.is_master_node() and p.P['NBins'] > 1:
 	if 'bin_files' not in listdir('.'): 
 		try: mkdir('bin_files',0744)
 		except OSError: exit()
 
-MaxMats = OmegaN(p.P['NMats']-1,p.P['beta']) # Matsubaras begin with n = 0
-FitMin  = int(0.9*p.P['NMats'])         # index of frequency, not frequency itself
+MaxMats = OmegaN(p.P['NMats']-1,p.P['beta']) 	## Matsubaras begin with n = 0
+FitMin  = int(0.9*p.P['NMats'])       	  		## index of frequency, not frequency itself
 FitMax  = p.P['NMats']
-Phi     = p.P['P']*sp.pi
+#Phi     = p.P['P']*sp.pi
 
 bands_T  = ['up','dn']
 params_F = [p.P['beta'],p.P['U'],p.P['Delta'],p.P['GammaL'],p.P['GammaR'],p.P['GammaN'],p.P['eps'],p.P['P'],p.P['B']]
 
 ## independent parameter for output
 if mpi.is_master_node():
-	parlist = ['beta','U','Delta','GammaL','GammaR','GammaN','eps','Phi','B'] 
+	parlist = ['beta','U','Delta','GammaL','GammaR','GammaN','eps','P','B'] 
+	InputParam = p.P['U']	## default
 	for i in parlist:
 		if p.P['InParam'] == i: InputParam = params_F[parlist.index(i)]
-
+	
 if mpi.is_master_node() and p.P['NBins'] == 1:
 	PrintAndWrite('\n'+stars+'\n* SQUAD CT-HYB START at '+ctime()+'\n'+stars+'\n',logfname)
 	PrintAndWrite('Environment parameters:\n  Master node name: '\
@@ -111,9 +112,9 @@ p_D = {}
 p_D['h_int']                       = h_int
 p_D['partition_method']            = p.P['partition']
 p_D['quantum_numbers']             = [N_tot]
-p_D['n_cycles']                    = p.P['NCycles']
-p_D['length_cycle']                = p.P['LengthCycle']
-p_D['n_warmup_cycles']             = p.P['NWarmup']
+p_D['n_cycles']                    = int(p.P['NCycles'])
+p_D['length_cycle']                = int(p.P['LengthCycle'])
+p_D['n_warmup_cycles']             = int(p.P['NWarmup'])
 p_D['random_name']                 = ''
 p_D['random_seed']                 = 123*mpi.rank + 567*int(time())
 p_D['max_time']                    = -1
